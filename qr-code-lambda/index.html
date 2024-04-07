@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+        #urlInput {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #generateBtn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #qrCodeImage {
+            margin-top: 20px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <input type="text" id="urlInput" placeholder="Enter URL">
+        <button id="generateBtn">Generate QR Code</button>
+        <div id="qrCodeContainer">
+            <img id="qrCodeImage" src="" alt="QR Code">
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            var url = document.getElementById('urlInput').value.trim();
+            if (url === '') {
+                alert('Please enter a valid URL');
+                return;
+            }
+            generateQRCode(url);
+        });
+
+        function generateQRCode(url) {
+            fetch('YOUR_API_GATEWAY_ENDPOINT', {
+                method: 'POST',
+                body: JSON.stringify({ url: url }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                var qrCodeUrl = data.body;
+                document.getElementById('qrCodeImage').src = qrCodeUrl;
+                document.getElementById('qrCodeContainer').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
+
+Access to fetch at 'https://h7oqfbixm6.execute-api.us-east-1.amazonaws.com/new' from origin 'http://127.0.0.1:5500' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+h7oqfbixm6.execute-api.us-east-1.amazonaws.com/new:1 
+        
+        
+       Failed to load resource: net::ERR_FAILED
+index.html:79 Error: TypeError: Failed to fetch
+    at generateQRCode (index.html:64:13)
+    at HTMLButtonElement.<anonymous> (index.html:60:13)
+
+
+undefined:1 
+        
+        
+       GET http://127.0.0.1:5500/undefined 404 (Not Found)
+       
+       Request URL:
+http://127.0.0.1:5500/undefined
+Request Method:
+GET
+Status Code:
+404 Not Found
